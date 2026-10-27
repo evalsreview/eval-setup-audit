@@ -1,0 +1,8 @@
+name: evals
+on: [pull_request]
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx promptfoo@latest eval -c promptfooconfig.yaml
