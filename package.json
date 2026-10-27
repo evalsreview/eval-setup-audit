@@ -1,0 +1,10 @@
+{
+  "name": "eval-setup-audit",
+  "version": "0.1.0",
+  "description": "Read-only checklist audit of a repo's LLM eval setup (promptfoo, DeepEval, Ragas, Inspect, OpenAI Evals, Braintrust).",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "eval-setup-audit": "audit.mjs" },
+  "scripts": { "test": "node --test tests/", "example": "node audit.mjs examples/fixtures/bad-hosted" },
+  "engines": { "node": ">=20.11" }
+}
