@@ -1,0 +1,7 @@
+prompts: ["{{q}}"]
+providers: ["openai:gpt-4.1-mini"]
+tests:
+  - vars: {q: hi}
+    assert:
+      - type: llm-rubric
+        value: "good"
