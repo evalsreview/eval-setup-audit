@@ -1,0 +1,12 @@
+# Synthetic fixture, not a real project.
+prompts: ["Answer briefly: {{question}}"]
+providers:
+  - id: openai:gpt-4.1-mini
+    config:
+      temperature: 0
+      seed: 42
+tests: file://data/test.jsonl
+defaultTest:
+  assert:
+    - type: llm-rubric
+      value: "The answer is factually correct, under 50 words, and does not invent sources."
