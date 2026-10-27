@@ -1,0 +1,58 @@
+## date: 2026-10-27T15:15:59+05:30
+## node: v20.19.2
+
+$ node --test tests/
+ok 1 - well-set-up promptfoo fixture passes every check
+ok 2 - OpenAI hosted Evals API use is flagged
+ok 3 - weak judges and CI without an eval step are flagged
+ok 4 - empty repo: no framework, other checks skip or fail, never crash
+ok 5 - GEval with evaluation_steps passes
+ok 6 - llm-rubric with no value fails; block-scalar rubric passes
+ok 7 - Inspect, Ragas, Braintrust and openai/evals registry are detected
+ok 8 - repo-root code licence only gives a warn for data
+ok 9 - key-shaped strings are flagged and the key is not printed
+ok 10 - node_modules is ignored
+ok 11 - CLI: --json parses and --strict exits 1 on a FAIL, 0 when clean
+# tests 11
+# pass 11
+# fail 0
+
+$ node audit.mjs examples/fixtures/good-promptfoo --json | summary
+PASS  frameworks
+PASS  hosted-lockin
+PASS  held-out
+PASS  determinism
+PASS  ci-gate
+PASS  judge-rubric
+PASS  dataset-licence
+PASS  no-inline-keys
+
+$ node audit.mjs examples/fixtures/bad-hosted --json | summary
+PASS  frameworks
+FAIL  hosted-lockin
+WARN  held-out
+WARN  determinism
+FAIL  ci-gate
+SKIP  judge-rubric
+FAIL  dataset-licence
+PASS  no-inline-keys
+
+$ node audit.mjs examples/fixtures/deepeval-weak --json | summary
+PASS  frameworks
+PASS  hosted-lockin
+WARN  held-out
+WARN  determinism
+FAIL  ci-gate
+FAIL  judge-rubric
+SKIP  dataset-licence
+PASS  no-inline-keys
+
+$ node audit.mjs examples/fixtures/empty --json | summary
+FAIL  frameworks
+PASS  hosted-lockin
+WARN  held-out
+SKIP  determinism
+FAIL  ci-gate
+SKIP  judge-rubric
+SKIP  dataset-licence
+PASS  no-inline-keys
